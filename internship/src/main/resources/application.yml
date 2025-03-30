@@ -1,0 +1,45 @@
+logging:
+  file:
+    name: /logs/admin-services.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: ERROR
+    vn.com.msb.authorized: INFO
+    org.hibernate: ERROR
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: hr
+    password: hr
+    testOnBorrow: true
+    validationQuery: SELECT 1 FROM DUAL
+    hikari:
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 300000
+      minimum-idle: 10
+      maximum-pool-size: 100
+      connection-test-query: SELECT 1 FROM DUAL
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+user-service:
+  swagger:
+    whitelists: /*.*
+
+server:
+  port: 8080
+
